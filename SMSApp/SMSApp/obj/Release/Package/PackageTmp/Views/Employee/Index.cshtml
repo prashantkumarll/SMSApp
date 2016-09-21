@@ -1,0 +1,47 @@
+﻿@model SMSApp.Models.EmpRating
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/Custom.js"></script>
+
+<h2>Index</h2>
+<div class="container">
+    @using (Html.BeginForm())
+    {
+
+        @Html.DropDownList("Skills", "Select a value")  <br/><br />
+
+        @Html.DropDownList("Ratings", "Select a value")  <br /><br />
+
+        <input type="button" id="btnSubmit" value="Add Skills" class="btn btn-default" onclick="AddSkills();" />
+
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>                
+                <th>Skill Name</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.SkillList)
+            {
+                <tr>                    
+                    <td>@item.SkillName</td>
+                    <td>@item.Rating</td>
+                    <td><input type="button" class="btn btn-danger" onclick="RemoveSkill();" value="Delete Skill"/></td>
+                    <td><input type="hidden" value="@item.Id" id="hdnId" /></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+

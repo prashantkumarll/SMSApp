@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SkillManagementSystemModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EmployeeDetails">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="ManagerId" Type="bigint" />
+    <Property Name="SkillId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmpRating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpEmail" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="SkillName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Rating" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="bigint" Nullable="false" />
+    <Property Name="SkillId" Type="bigint" Nullable="false" />
+    <Property Name="RatingId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ratings">
+    <Key>
+      <PropertyRef Name="RatingId" />
+    </Key>
+    <Property Name="RatingId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RatingValue" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Skills">
+    <Key>
+      <PropertyRef Name="SkillId" />
+    </Key>
+    <Property Name="SkillId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SkillName" Type="nvarchar(max)" />
+    <Property Name="EmployeeId" Type="bigint" Nullable="false" />
+    <Property Name="RatingId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_MasterDetails_EmployeeDetails">
+    <End Role="EmployeeDetails" Type="Self.EmployeeDetails" Multiplicity="1" />
+    <End Role="MasterDetails" Type="Self.MasterDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeDetails">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="MasterDetails">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterDetails_Ratings">
+    <End Role="Ratings" Type="Self.Ratings" Multiplicity="1" />
+    <End Role="MasterDetails" Type="Self.MasterDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ratings">
+        <PropertyRef Name="RatingId" />
+      </Principal>
+      <Dependent Role="MasterDetails">
+        <PropertyRef Name="RatingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterDetails_Skills">
+    <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+    <End Role="MasterDetails" Type="Self.MasterDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skills">
+        <PropertyRef Name="SkillId" />
+      </Principal>
+      <Dependent Role="MasterDetails">
+        <PropertyRef Name="SkillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SkillManagementSystemModel1StoreContainer">
+    <EntitySet Name="EmployeeDetails" EntityType="Self.EmployeeDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmpRating" EntityType="Self.EmpRating" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterDetails" EntityType="Self.MasterDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_MasterDetails_EmployeeDetails" Association="Self.FK_MasterDetails_EmployeeDetails">
+      <End Role="EmployeeDetails" EntitySet="EmployeeDetails" />
+      <End Role="MasterDetails" EntitySet="MasterDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterDetails_Ratings" Association="Self.FK_MasterDetails_Ratings">
+      <End Role="Ratings" EntitySet="Ratings" />
+      <End Role="MasterDetails" EntitySet="MasterDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterDetails_Skills" Association="Self.FK_MasterDetails_Skills">
+      <End Role="Skills" EntitySet="Skills" />
+      <End Role="MasterDetails" EntitySet="MasterDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SkillManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EmployeeDetails">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="ManagerId" Type="bigint" />
+    <Property Name="SkillId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="bigint" Nullable="false" />
+    <Property Name="SkillId" Type="bigint" Nullable="false" />
+    <Property Name="RatingId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ratings">
+    <Key>
+      <PropertyRef Name="RatingId" />
+    </Key>
+    <Property Name="RatingId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RatingValue" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Skills">
+    <Key>
+      <PropertyRef Name="SkillId" />
+    </Key>
+    <Property Name="SkillId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SkillName" Type="nvarchar(max)" />
+    <Property Name="EmployeeId" Type="bigint" />
+  </EntityType>
+  <Association Name="FK__MasterDet__Emplo__1CF15040">
+    <End Role="EmployeeDetails" Type="Self.EmployeeDetails" Multiplicity="1" />
+    <End Role="MasterDetails" Type="Self.MasterDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeDetails">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="MasterDetails">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MasterDet__Ratin__1ED998B2">
+    <End Role="Ratings" Type="Self.Ratings" Multiplicity="1" />
+    <End Role="MasterDetails" Type="Self.MasterDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ratings">
+        <PropertyRef Name="RatingId" />
+      </Principal>
+      <Dependent Role="MasterDetails">
+        <PropertyRef Name="RatingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MasterDet__Skill__1DE57479">
+    <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+    <End Role="MasterDetails" Type="Self.MasterDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skills">
+        <PropertyRef Name="SkillId" />
+      </Principal>
+      <Dependent Role="MasterDetails">
+        <PropertyRef Name="SkillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SkillManagementSystemModelStoreContainer">
+    <EntitySet Name="EmployeeDetails" EntityType="Self.EmployeeDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterDetails" EntityType="Self.MasterDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__MasterDet__Emplo__1CF15040" Association="Self.FK__MasterDet__Emplo__1CF15040">
+      <End Role="EmployeeDetails" EntitySet="EmployeeDetails" />
+      <End Role="MasterDetails" EntitySet="MasterDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MasterDet__Ratin__1ED998B2" Association="Self.FK__MasterDet__Ratin__1ED998B2">
+      <End Role="Ratings" EntitySet="Ratings" />
+      <End Role="MasterDetails" EntitySet="MasterDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MasterDet__Skill__1DE57479" Association="Self.FK__MasterDet__Skill__1DE57479">
+      <End Role="Skills" EntitySet="Skills" />
+      <End Role="MasterDetails" EntitySet="MasterDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

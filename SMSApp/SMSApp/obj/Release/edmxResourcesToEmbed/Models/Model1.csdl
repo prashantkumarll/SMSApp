@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SkillManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EmployeeDetail">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ManagerId" Type="Int64" />
+    <Property Name="SkillId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="MasterDetails" Relationship="Self.FK__MasterDet__Emplo__1CF15040" FromRole="EmployeeDetails" ToRole="MasterDetails" />
+  </EntityType>
+  <EntityType Name="MasterDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeId" Type="Int64" Nullable="false" />
+    <Property Name="SkillId" Type="Int64" Nullable="false" />
+    <Property Name="RatingId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="EmployeeDetail" Relationship="Self.FK__MasterDet__Emplo__1CF15040" FromRole="MasterDetails" ToRole="EmployeeDetails" />
+    <NavigationProperty Name="Rating" Relationship="Self.FK__MasterDet__Ratin__1ED998B2" FromRole="MasterDetails" ToRole="Ratings" />
+    <NavigationProperty Name="Skill" Relationship="Self.FK__MasterDet__Skill__1DE57479" FromRole="MasterDetails" ToRole="Skills" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="RatingId" />
+    </Key>
+    <Property Name="RatingId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RatingValue" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MasterDetails" Relationship="Self.FK__MasterDet__Ratin__1ED998B2" FromRole="Ratings" ToRole="MasterDetails" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="SkillId" />
+    </Key>
+    <Property Name="SkillId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SkillName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeId" Type="Int64" />
+    <NavigationProperty Name="MasterDetails" Relationship="Self.FK__MasterDet__Skill__1DE57479" FromRole="Skills" ToRole="MasterDetails" />
+  </EntityType>
+  <Association Name="FK__MasterDet__Emplo__1CF15040">
+    <End Role="EmployeeDetails" Type="Self.EmployeeDetail" Multiplicity="1" />
+    <End Role="MasterDetails" Type="Self.MasterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeDetails">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="MasterDetails">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MasterDet__Ratin__1ED998B2">
+    <End Role="Ratings" Type="Self.Rating" Multiplicity="1" />
+    <End Role="MasterDetails" Type="Self.MasterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ratings">
+        <PropertyRef Name="RatingId" />
+      </Principal>
+      <Dependent Role="MasterDetails">
+        <PropertyRef Name="RatingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MasterDet__Skill__1DE57479">
+    <End Role="Skills" Type="Self.Skill" Multiplicity="1" />
+    <End Role="MasterDetails" Type="Self.MasterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skills">
+        <PropertyRef Name="SkillId" />
+      </Principal>
+      <Dependent Role="MasterDetails">
+        <PropertyRef Name="SkillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SkillManagementSystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EmployeeDetails" EntityType="Self.EmployeeDetail" />
+    <EntitySet Name="MasterDetails" EntityType="Self.MasterDetail" />
+    <EntitySet Name="Ratings" EntityType="Self.Rating" />
+    <EntitySet Name="Skills" EntityType="Self.Skill" />
+    <AssociationSet Name="FK__MasterDet__Emplo__1CF15040" Association="Self.FK__MasterDet__Emplo__1CF15040">
+      <End Role="EmployeeDetails" EntitySet="EmployeeDetails" />
+      <End Role="MasterDetails" EntitySet="MasterDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MasterDet__Ratin__1ED998B2" Association="Self.FK__MasterDet__Ratin__1ED998B2">
+      <End Role="Ratings" EntitySet="Ratings" />
+      <End Role="MasterDetails" EntitySet="MasterDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MasterDet__Skill__1DE57479" Association="Self.FK__MasterDet__Skill__1DE57479">
+      <End Role="Skills" EntitySet="Skills" />
+      <End Role="MasterDetails" EntitySet="MasterDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
