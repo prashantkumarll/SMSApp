@@ -6,21 +6,36 @@
 
 <h2>Index</h2>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DropDownList("employeeList", new List<SelectListItem>(ViewBag.EmployeeList),"All",new { @class = "form-control" })
+        </div>
+        <div class="col-md-3">
+            @Html.DropDownList("skillsList", new List<SelectListItem>(ViewBag.Skills), "All", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3">
+            @Html.DropDownList("ratingList", new List<SelectListItem>(ViewBag.Ratings), "All", new { @class = "form-control" })
+        </div>
+
+    </div>
+</div>
+
+
 <table class="table table-striped" id="tblContent">
     <thead>
         <tr>
             <th>Employee Name</th>
             <th>Skill Name</th>
-            <th>Rating</th>
-        </th>
+            <th>Rating</th>            
     </thead>
-    <tbody>
+    <tbody id="tbody1">
         @foreach (var item in ViewBag.EmpList)
             {
             <tr>
                 <td>@item.EmpEmail</td>
                 <td>@item.SkillName</td>
-                <td>@item.Rating</td>                
+                <td>@item.Rating</td>
             </tr>
         }
     </tbody>

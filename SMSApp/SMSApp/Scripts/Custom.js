@@ -90,5 +90,59 @@
         })
     });
 
+    $('#employeeList').on('change', function () {
+        var employee = $('#employeeList option:selected').text();
+        $.ajax({
+            type: "POST",
+            url: "/Admin/UpdateBasedOnEmployeeName",
+            data: { value: employee },
+            dataType: "json",
+            success: function (data) {
+                $('#tbody1').empty();
+                for (var i = 0; i < data.length; i++) {
+                    $('#tbody1').append("<tr><td>" + data[i]["EmpEmail"] + "</td><td>" + data[i]["SkillName"] + "</td><td>" + data[i]["Rating"] + "</td></tr>");
+                }
+
+            },
+            error: function () { }
+        })
+    });
+
+    $('#skillsList').on('change', function () {
+        var employee = $('#skillsList option:selected').text();
+        $.ajax({
+            type: "POST",
+            url: "/Admin/PopulateListBasedOnSkills",
+            data: { value: employee },
+            dataType: "json",
+            success: function (data) {
+                $('#tbody1').empty();
+                for (var i = 0; i < data.length; i++) {
+                    $('#tbody1').append("<tr><td>" + data[i]["EmpEmail"] + "</td><td>" + data[i]["SkillName"] + "</td><td>" + data[i]["Rating"] + "</td></tr>");
+                }
+
+            },
+            error: function () { }
+        })
+    });
+
+    $('#ratingList').on('change', function () {
+        var employee = $('#ratingList option:selected').text();
+        $.ajax({
+            type: "POST",
+            url: "/Admin/PopulateListBasedOnRating",
+            data: { value: employee },
+            dataType: "json",
+            success: function (data) {
+                $('#tbody1').empty();
+                for (var i = 0; i < data.length; i++) {
+                    $('#tbody1').append("<tr><td>" + data[i]["EmpEmail"] + "</td><td>" + data[i]["SkillName"] + "</td><td>" + data[i]["Rating"] + "</td></tr>");
+                }
+
+            },
+            error: function () { }
+        })
+    });
+
 })
 
