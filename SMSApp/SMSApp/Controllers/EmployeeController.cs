@@ -14,10 +14,13 @@ namespace SMSApp.Controllers
         // GET: Employee
         public ActionResult Index()
         {
-            ViewBag.Skills = db.Skills.Select(x => new SelectListItem { Text = x.SkillName, Value = x.SkillId.ToString() }).ToList();            
-            ViewBag.Ratings = db.Ratings.Select(x => new SelectListItem { Text = x.RatingId.ToString(), Value = x.RatingValue.ToString() }).ToList();            
+            ViewBag.Skills = db.Skills.Select(x => new SelectListItem { Text = x.SkillName, Value = x.SkillId.ToString() }).ToList();
+
+            ViewBag.Ratings = db.Ratings.Select(x => new SelectListItem { Text = x.RatingId.ToString(), Value = x.RatingValue.ToString() }).ToList();
+
             var skillItemList = db.EmpRatings.ToList<EmpRating>();
             ViewBag.SkillList = skillItemList;
+
             return View();
         }
 
