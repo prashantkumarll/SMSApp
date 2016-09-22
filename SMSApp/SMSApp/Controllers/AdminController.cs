@@ -1,13 +1,12 @@
 ﻿using SMSApp.Dal;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using SMSApp.Models;
 
 namespace SMSApp.Controllers
 {
+    [Authorize(Users = @"Fareast\v-pskum")]
     public class AdminController : Controller
     {
         SkillManagementDal db = new SkillManagementDal();
@@ -67,5 +66,4 @@ namespace SMSApp.Controllers
             return Json(employeeList, JsonRequestBehavior.AllowGet);
         }
     }
-
 }

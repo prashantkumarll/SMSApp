@@ -1,26 +1,31 @@
 ﻿@model SMSApp.Models.EmpRating
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Skill Management Portal";
 }
-<script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/Custom.js"></script>
 
-<h2>Index</h2>
+<h2>Skill Management Portal</h2>
 <div class="container">
     @using (Html.BeginForm())
     {
-
-        @Html.DropDownList("Skills", "Select a value")  <br/><br />
-
-        @Html.DropDownList("Ratings", "Select a value")  <br /><br />
-
-        <input type="button" id="btnSubmit" value="Add Skills" class="btn btn-default" onclick="AddSkills();" />
+        <div class="row">
+            <div class="col-md-3">
+                <label class="label label-primary">Select a Skill</label>
+                @Html.DropDownList("Skills", new List<SelectListItem>(ViewBag.Skills), "Select a value", new { @class = "form-control" }) <br />
+            </div>
+            <div class="col-md-3">
+                <label class="label label-primary">Select a Rating</label>
+                @Html.DropDownList("Ratings", new List<SelectListItem>(ViewBag.Ratings), "Select a value", new { @class = "form-control" })  <br />
+            </div>
+        </div>
+        <input type="button" id="btnSubmit" value="Add Skills" class="btn btn-primary"  />
 
     }
 
-    <table class="table table-striped">
+    <label id="lblMessage"></label>
+
+    <table class="table table-striped" id="tblContent">
         <thead>
-            <tr>                
+            <tr>
                 <th>Skill Name</th>
                 <th>Rating</th>
             </tr>
@@ -28,16 +33,15 @@
         <tbody>
             @foreach (var item in ViewBag.SkillList)
             {
-                <tr>                    
+                <tr>
                     <td>@item.SkillName</td>
                     <td>@item.Rating</td>
-                    <td><input type="button" class="btn btn-danger" onclick="RemoveSkill();" value="Delete Skill"/></td>
-                    <td><input type="hidden" value="@item.Id" id="hdnId" /></td>
+                    <td><input type="button" class="btn btn-danger" id="btnDelete" value="Delete" /></td>
+                    <td><input type="hidden" value="@item.Id" id="hdnId" class="ids" /></td>
                 </tr>
             }
-
         </tbody>
-    </table>
+    </table>   
 
 </div>
 

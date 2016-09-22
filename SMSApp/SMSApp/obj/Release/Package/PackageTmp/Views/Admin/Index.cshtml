@@ -13,14 +13,11 @@
             @Html.DropDownList("employeeList", new List<SelectListItem>(ViewBag.EmployeeList),"All",new { @class = "form-control" })
         </div>
         <div class="col-md-1">
-            <label class="text-center">OR</label>
+            <label class="">OR</label>
         </div>
         <div class="col-md-3">
             @Html.DropDownList("skillsList", new List<SelectListItem>(ViewBag.Skills), "All", new { @class = "form-control" })
         </div>
-        <div class="col-md-1">
-            <label class="text-center">OR</label>
-        </div>        
         <div class="col-md-3">
             @Html.DropDownList("ratingList", new List<SelectListItem>(ViewBag.Ratings), "All", new { @class = "form-control" })
         </div>

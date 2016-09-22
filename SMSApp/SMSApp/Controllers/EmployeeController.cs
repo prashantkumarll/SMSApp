@@ -1,8 +1,6 @@
 ﻿using SMSApp.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using SMSApp.Dal;
 
@@ -14,11 +12,13 @@ namespace SMSApp.Controllers
         // GET: Employee
         public ActionResult Index()
         {
+            string username = User.Identity.Name.ToString();
+
             ViewBag.Skills = db.Skills.Select(x => new SelectListItem { Text = x.SkillName, Value = x.SkillId.ToString() }).ToList();
 
             ViewBag.Ratings = db.Ratings.Select(x => new SelectListItem { Text = x.RatingId.ToString(), Value = x.RatingValue.ToString() }).ToList();
 
-            var skillItemList = db.EmpRatings.ToList<EmpRating>();
+            var skillItemList = db.EmpRatings.Where(x=>x.EmpEmail==username).ToList();
             ViewBag.SkillList = skillItemList;
 
             return View();
@@ -28,7 +28,7 @@ namespace SMSApp.Controllers
         [HttpPost, ActionName("AddSkills")]
         public ActionResult AddSkills(string skillname, string rating)
         {
-            ViewBag.Message = "Skills Already Exists";
+            ViewBag.Message = "Skill Already Exists";
             EmpRating empRating = new EmpRating();
             bool skillnameExists = db.EmpRatings.Any(m => m.SkillName == skillname && m.EmpEmail == User.Identity.Name);
             if (!skillnameExists)
