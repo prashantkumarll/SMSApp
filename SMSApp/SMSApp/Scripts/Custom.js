@@ -12,7 +12,7 @@
                     dataType: "json",
                     success: function (data) {
 
-                        if (data !== "Skills Already Exists") {
+                        if (data !== "Skill Already Exists") {
 
                             var tbl = $("#tblContent").append("<tr>" +
                                     "<td>" + data["SkillName"] + "</td>" +
